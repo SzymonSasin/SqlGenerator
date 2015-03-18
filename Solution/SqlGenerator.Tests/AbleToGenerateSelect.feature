@@ -7,4 +7,4 @@
 Scenario: Simple Select From object
 	Given Select Generator
 	When Request Select for TestObject
-	Then I have SQL like 'SELECT t.Id, t.Name, t.OrderId FROM TestObjects' 
+	Then I have SQL like 'SELECT t.Id, t.Name, t.OrderId FROM TestObject t' 

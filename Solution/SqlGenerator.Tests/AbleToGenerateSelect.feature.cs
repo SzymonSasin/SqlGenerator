@@ -88,7 +88,7 @@ namespace SqlGenerator.Tests
 #line 9
             testRunner.When("Request Select for TestObject", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 10
-            testRunner.Then("I have SQL like \'SELECT t.Id, t.Name, t.OrderId FROM TestObjects\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+            testRunner.Then("I have SQL like \'SELECT t.Id, t.Name, t.OrderId FROM TestObject t\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

@@ -5,15 +5,15 @@ namespace SqlGenerator
 {
     internal sealed class SelectGenerator : ISelect
     {
-        private IEnumerable<object> parameters;
+        private IEnumerable<string> parameters;
         private string tableName;
-        private string tableNameAlias;
+        private string alias;
 
-        internal SelectGenerator(IEnumerable<object> parameters, string tableName, string alias = null)
+        internal SelectGenerator(IEnumerable<string> parameters, string tableName, string alias = null)
         {
             this.parameters = parameters;
 
-            this.SetTable(tableName, alias);
+            this.PopulateTableNameAndAliasProperties(tableName, alias);
         }
 
         public static SelectGenerator CreateFrom<T>()
@@ -27,33 +27,39 @@ namespace SqlGenerator
 
         public ISelect From(string tableName, string alias = null)
         {
-            SetTable(tableName, alias);
+            PopulateTableNameAndAliasProperties(tableName, alias);
 
             return this;
         }
 
         public override string ToString()
         {
-            return string.Empty;
+            return string.Format(
+                "SELECT {2}.{0} FROM {1} {2}",
+                BuildParameters(),
+                this.tableName,
+                this.alias);
         }
 
-        private void SetTable(string tableName, string alias)
+        private string BuildParameters()
+        {
+            var parameterSeparator = ", " + this.alias + ".";
+            return string.Join(parameterSeparator, this.parameters);
+        }
+
+        private void PopulateTableNameAndAliasProperties(string tableName, string alias)
         {
             this.tableName = tableName;
-
-            SetAlias(alias);
+            this.alias = GetAlias(alias);
         }
 
-        private void SetAlias(string alias)
+        private string GetAlias(string alias)
         {
-            if (alias == null)
-            {
-                this.tableNameAlias = this.tableName[0].ToString();
-            }
-            else
-            {
-                this.tableNameAlias = alias;
-            }
+            var tableAlias = alias == null ?
+                this.tableName[0].ToString() :
+                alias;
+
+            return tableAlias.ToLower();
         }
     }
 }
