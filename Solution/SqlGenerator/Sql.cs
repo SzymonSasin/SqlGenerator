@@ -2,12 +2,9 @@
 {
     public sealed class Sql
     {
-        public static Select Select
+        public static SelectGenerator Select<T>()
         {
-            get
-            {
-                return new Select();
-            }
+            return SelectGenerator.CreateFrom<T>();
         }
     }
 }

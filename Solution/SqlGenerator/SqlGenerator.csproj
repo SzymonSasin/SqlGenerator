@@ -51,7 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ISqlCommand.cs" />
-    <Compile Include="Select.cs" />
+    <Compile Include="SelectGenerator.cs" />
     <Compile Include="Sql.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
