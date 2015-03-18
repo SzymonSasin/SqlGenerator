@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SqlGenerator
+﻿namespace SqlGenerator
 {
-    internal class Sql
+    public sealed class Sql
     {
+        public static Select Select
+        {
+            get
+            {
+                return new Select();
+            }
+        }
     }
 }

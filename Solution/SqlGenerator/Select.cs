@@ -2,11 +2,36 @@
 {
     public sealed class Select
     {
-        public static Select Select
+        private string tableName;
+        private string tableNameAlias;
+
+        internal Select(params object[] parameters)
         {
-            get
+        }
+
+        public Select From(string tableName, string alias = null)
+        {
+            this.tableName = tableName;
+
+            SetAlias(alias);
+
+            return this;
+        }
+
+        public override string ToString()
+        {
+            return string.Empty;
+        }
+
+        private void SetAlias(string alias)
+        {
+            if (alias == null)
             {
-                return new Select();
+                this.tableNameAlias = this.tableName[0].ToString();
+            }
+            else
+            {
+                this.tableNameAlias = alias;
             }
         }
     }
