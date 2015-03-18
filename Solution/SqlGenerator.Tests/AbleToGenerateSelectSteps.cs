@@ -1,4 +1,6 @@
-﻿using TechTalk.SpecFlow;
+﻿using SqlGenerator.Tests.Utils;
+using TechTalk.SpecFlow;
+using Xunit;
 
 namespace SqlGenerator.Tests
 {
@@ -8,19 +10,22 @@ namespace SqlGenerator.Tests
         [Given(@"Select Generator")]
         public void GivenSelectGenerator()
         {
-            //ScenarioContext.Current.Add("Select", new Select());
+            ScenarioContext.Current.Add("Select", Sql.Select<TestObject>());
         }
 
         [When(@"Request Select for TestObject")]
         public void WhenRequestSelectForTestObject()
         {
-            ScenarioContext.Current.Pending();
+            var select = ScenarioContext.Current.Get<ISelect>("Select");
+
+            ScenarioContext.Current.Add("SQL", select.ToString());
         }
 
         [Then(@"I have SQL like '(.*)'")]
-        public void ThenIHaveSQLLike(string p0)
+        public void ThenIHaveSQLLike(string providedSql)
         {
-            ScenarioContext.Current.Pending();
+            var generatedSql = ScenarioContext.Current.Get<string>("SQL");
+            Assert.Equal(providedSql, generatedSql);
         }
     }
 }

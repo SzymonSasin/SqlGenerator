@@ -62,7 +62,7 @@
     </Compile>
     <Compile Include="AbleToGenerateSelectSteps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\TetsObject.cs" />
+    <Compile Include="Utils\TestObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="AbleToGenerateSelect.feature">
@@ -74,6 +74,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SqlGenerator\SqlGenerator.csproj">
+      <Project>{4fee66cf-c9fa-48c4-8c2b-b51e55b6c9da}</Project>
+      <Name>SqlGenerator</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

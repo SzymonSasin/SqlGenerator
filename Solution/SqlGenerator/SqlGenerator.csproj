@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ISelect.cs" />
     <Compile Include="ISqlCommand.cs" />
     <Compile Include="SelectGenerator.cs" />
     <Compile Include="Sql.cs" />
