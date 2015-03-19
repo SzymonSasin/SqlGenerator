@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IWhere.cs" />
     <Compile Include="ISelect.cs" />
     <Compile Include="ISqlCommand.cs" />
     <Compile Include="Select.cs" />
