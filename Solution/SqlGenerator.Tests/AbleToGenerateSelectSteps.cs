@@ -27,6 +27,12 @@ namespace SqlGenerator.Tests
             this.Select.Alias(alias);
         }
 
+        [Given(@"where clause is '(.*)'")]
+        public void GivenWhereClauseIsTest(string whereClase)
+        {
+            this.Select.Where(whereClase);
+        }
+
         [When(@"Request Select for TestObject")]
         public void WhenRequestSelectForTestObject()
         {

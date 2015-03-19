@@ -6,6 +6,8 @@
 
         ISelect Alias(string alias);
 
+        ISelect Where(string whereClase);
+
         string ToString();
     }
 }

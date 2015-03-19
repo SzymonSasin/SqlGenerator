@@ -8,6 +8,7 @@ namespace SqlGenerator
         private IEnumerable<string> parameters;
         private string tableName;
         private string alias;
+        private string where;
 
         internal Select(IEnumerable<string> parameters, string tableName, string alias = null)
         {
@@ -38,6 +39,14 @@ namespace SqlGenerator
 
             return this;
         }
+
+        public ISelect Where(string whereClase)
+        {
+            this.where = whereClase;
+
+            return this;
+        }
+
         public override string ToString()
         {
             return string.Format(
@@ -67,7 +76,5 @@ namespace SqlGenerator
 
             return tableAlias.ToLower();
         }
-
-
     }
 }
