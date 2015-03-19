@@ -7,18 +7,30 @@ namespace SqlGenerator.Tests
     [Binding]
     public class AbleToGenerateSelectSteps
     {
+        private ISelect Select
+        {
+            get
+            {
+                return ScenarioContext.Current.Get<ISelect>("Select");
+            }
+        }
+
         [Given(@"Select Generator")]
         public void GivenSelectGenerator()
         {
             ScenarioContext.Current.Add("Select", Sql.Select<TestObject>());
         }
 
+        [Given(@"Alias is '(.*)'")]
+        public void GivenAliasIs(string alias)
+        {
+            this.Select.Alias(alias);
+        }
+
         [When(@"Request Select for TestObject")]
         public void WhenRequestSelectForTestObject()
         {
-            var select = ScenarioContext.Current.Get<ISelect>("Select");
-
-            ScenarioContext.Current.Add("SQL", select.ToString());
+            ScenarioContext.Current.Add("SQL", Select.ToString());
         }
 
         [Then(@"I have SQL like '(.*)'")]

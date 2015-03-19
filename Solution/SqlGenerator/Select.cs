@@ -3,26 +3,26 @@ using System.Linq;
 
 namespace SqlGenerator
 {
-    internal sealed class SelectGenerator : ISelect
+    internal sealed class Select : ISelect
     {
         private IEnumerable<string> parameters;
         private string tableName;
         private string alias;
 
-        internal SelectGenerator(IEnumerable<string> parameters, string tableName, string alias = null)
+        internal Select(IEnumerable<string> parameters, string tableName, string alias = null)
         {
             this.parameters = parameters;
 
             this.PopulateTableNameAndAliasProperties(tableName, alias);
         }
 
-        public static SelectGenerator CreateFrom<T>()
+        public static Select CreateFrom<T>()
         {
             var properties = typeof(T)
                 .GetProperties()
                 .Select(x => x.Name);
 
-            return new SelectGenerator(properties, typeof(T).Name, null);
+            return new Select(properties, typeof(T).Name, null);
         }
 
         public ISelect From(string tableName, string alias = null)
@@ -32,6 +32,12 @@ namespace SqlGenerator
             return this;
         }
 
+        public ISelect Alias(string alias)
+        {
+            this.alias = GetAlias(alias);
+
+            return this;
+        }
         public override string ToString()
         {
             return string.Format(
@@ -61,5 +67,7 @@ namespace SqlGenerator
 
             return tableAlias.ToLower();
         }
+
+
     }
 }

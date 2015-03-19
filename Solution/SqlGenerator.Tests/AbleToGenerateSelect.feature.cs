@@ -35,8 +35,8 @@ namespace SqlGenerator.Tests
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "AbleToGenerateSelect", "In order generate select statement\nAs a SQL newbie\nI want to use object to give m" +
-                    "e my SQL", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "AbleToGenerateSelect", "In order generate select statement\r\nAs a SQL newbie\r\nI want to use object to give" +
+                    " me my SQL", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
 
@@ -80,7 +80,7 @@ namespace SqlGenerator.Tests
         public virtual void SimpleSelectFromObject()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Simple Select From object", new string[] {
-                        "mytag"});
+                        "select"});
 #line 7
             this.ScenarioSetup(scenarioInfo);
 #line 8
@@ -89,6 +89,27 @@ namespace SqlGenerator.Tests
             testRunner.When("Request Select for TestObject", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 10
             testRunner.Then("I have SQL like \'SELECT t.Id, t.Name, t.OrderId FROM TestObject t\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+
+        [Xunit.FactAttribute()]
+        [Xunit.TraitAttribute("FeatureTitle", "AbleToGenerateSelect")]
+        [Xunit.TraitAttribute("Description", "Simple Select From object with alias")]
+        public virtual void SimpleSelectFromObjectWithAlias()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Simple Select From object with alias", new string[] {
+                        "select"});
+#line 13
+            this.ScenarioSetup(scenarioInfo);
+#line 14
+            testRunner.Given("Select Generator", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 15
+            testRunner.And("Alias is \'to\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 16
+            testRunner.When("Request Select for TestObject", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 17
+            testRunner.Then("I have SQL like \'SELECT to.Id, to.Name, to.OrderId FROM TestObject to\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

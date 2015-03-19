@@ -4,7 +4,7 @@
     {
         public static ISelect Select<T>()
         {
-            return SelectGenerator.CreateFrom<T>();
+            return Sql.Select<T>();
         }
     }
 }

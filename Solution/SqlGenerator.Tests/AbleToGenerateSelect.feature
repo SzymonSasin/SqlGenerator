@@ -3,8 +3,15 @@
 	As a SQL newbie
 	I want to use object to give me my SQL
 
-@mytag
+@select
 Scenario: Simple Select From object
 	Given Select Generator
 	When Request Select for TestObject
 	Then I have SQL like 'SELECT t.Id, t.Name, t.OrderId FROM TestObject t' 
+
+@select
+Scenario: Simple Select From object with alias
+	Given Select Generator
+	And Alias is 'to' 
+	When Request Select for TestObject
+	Then I have SQL like 'SELECT to.Id, to.Name, to.OrderId FROM TestObject to' 
