@@ -3,78 +3,27 @@ using System.Linq;
 
 namespace SqlGenerator
 {
-    internal sealed class Select : ISelect
+    internal sealed class Select : SqlCommandPart, ISelect
     {
-        private IEnumerable<string> parameters;
-        private string tableName;
-        private string alias;
-        private string where;
-
-        internal Select(IEnumerable<string> parameters, string tableName, string alias = null)
+        public Select()
+            : base(new SqlBuilder())
         {
-            this.parameters = parameters;
-
-            this.PopulateTableNameAndAliasProperties(tableName, alias);
         }
 
-        public static Select CreateFrom<T>()
+        public IFrom AllColumns()
         {
-            var properties = typeof(T)
-                .GetProperties()
-                .Select(x => x.Name);
-
-            return new Select(properties, typeof(T).Name, null);
+            return this.Columns("*");
         }
 
-        public ISelect From(string tableName, string alias = null)
+        public IFrom Columns(params string[] properties)
         {
-            PopulateTableNameAndAliasProperties(tableName, alias);
-
-            return this;
+            this.Builder.AddSqlTemplate(this.GetSqlTempalte(properties));
+            return new From(this.Builder);
         }
 
-        public ISelect Alias(string alias)
+        internal string GetSqlTempalte(IEnumerable<string> properties)
         {
-            this.alias = GetAlias(alias);
-
-            return this;
-        }
-
-        public ISelect Where(string whereClase)
-        {
-            this.where = whereClase;
-
-            return this;
-        }
-
-        public override string ToString()
-        {
-            return string.Format(
-                "SELECT {2}.{0} FROM {1} {2}",
-                BuildParameters(),
-                this.tableName,
-                this.alias);
-        }
-
-        private string BuildParameters()
-        {
-            var parameterSeparator = ", " + this.alias + ".";
-            return string.Join(parameterSeparator, this.parameters);
-        }
-
-        private void PopulateTableNameAndAliasProperties(string tableName, string alias)
-        {
-            this.tableName = tableName;
-            this.alias = GetAlias(alias);
-        }
-
-        private string GetAlias(string alias)
-        {
-            var tableAlias = alias == null ?
-                this.tableName[0].ToString() :
-                alias;
-
-            return tableAlias.ToLower();
+            return "SELECT {0}." + string.Join(", {0}.", properties);
         }
     }
 }

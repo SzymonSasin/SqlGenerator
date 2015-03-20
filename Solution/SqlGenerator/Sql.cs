@@ -1,10 +1,21 @@
-﻿namespace SqlGenerator
+﻿using System.Linq;
+
+namespace SqlGenerator
 {
     public sealed class Sql
     {
-        public static ISelect Select<T>()
+        public static IFrom Select()
         {
-            return Sql.Select<T>();
+            return new Select().AllColumns();
+        }
+
+        public static IFrom Select<T>()
+        {
+            var columns = typeof(T)
+                .GetProperties()
+                .Select(x => x.Name);
+
+            return new Select().Columns(columns.ToArray());
         }
     }
 }

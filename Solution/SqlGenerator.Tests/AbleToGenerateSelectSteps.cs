@@ -7,42 +7,57 @@ namespace SqlGenerator.Tests
     [Binding]
     public class AbleToGenerateSelectSteps
     {
-        private ISelect Select
-        {
-            get
-            {
-                return ScenarioContext.Current.Get<ISelect>("Select");
-            }
-        }
+        private const string Query = "query";
+        private const string SqlText = "sql";
 
         [Given(@"Select Generator")]
         public void GivenSelectGenerator()
         {
-            ScenarioContext.Current.Add("Select", Sql.Select<TestObject>());
+            ScenarioContext.Current[AbleToGenerateSelectSteps.Query] = Sql.Select<TestObject>();
         }
 
-        [Given(@"Alias is '(.*)'")]
-        public void GivenAliasIs(string alias)
+        [Given(@"Table is '(.*)'")]
+        public void GivenTableIs(string table)
         {
-            this.Select.Alias(alias);
+            var query = ScenarioContext
+                .Current
+                .Get<IFrom>(AbleToGenerateSelectSteps.Query)
+                .Table(table);
+            ScenarioContext.Current[AbleToGenerateSelectSteps.Query] = query;
         }
 
-        [Given(@"where clause is '(.*)'")]
-        public void GivenWhereClauseIsTest(string whereClase)
+        [Given(@"Table with alias is '(.*)' and alias '(.*)'")]
+        public void GivenTableIsWithAlias(string table, string alias)
         {
-            this.Select.Where(whereClase);
+            var query = ScenarioContext
+                .Current
+                .Get<IFrom>(AbleToGenerateSelectSteps.Query)
+                .Table(table, alias);
+            ScenarioContext.Current[AbleToGenerateSelectSteps.Query] = query;
+        }
+
+        [Given(@"where clause is equals between '(.*)' and ""(.*')""")]
+        public void GivenWhereClauseIsEquals(string left, string right)
+        {
+            var query = ScenarioContext
+                .Current
+                .Get<IWhere>(AbleToGenerateSelectSteps.Query)
+                .For(left)
+                .IsEqualTo(right);
+            ScenarioContext.Current[AbleToGenerateSelectSteps.Query] = query;
         }
 
         [When(@"Request Select for TestObject")]
         public void WhenRequestSelectForTestObject()
         {
-            ScenarioContext.Current.Add("SQL", Select.ToString());
+            var query = ScenarioContext.Current.Get<IQuery>(AbleToGenerateSelectSteps.Query).ToString();
+            ScenarioContext.Current[AbleToGenerateSelectSteps.SqlText] = query;
         }
 
         [Then(@"I have SQL like '(.*)'")]
         public void ThenIHaveSQLLike(string providedSql)
         {
-            var generatedSql = ScenarioContext.Current.Get<string>("SQL");
+            var generatedSql = ScenarioContext.Current.Get<string>(AbleToGenerateSelectSteps.SqlText);
             Assert.Equal(providedSql, generatedSql);
         }
     }

@@ -6,18 +6,20 @@
 @select
 Scenario: Simple Select From object
 	Given Select Generator
+	And Table is 'TestObject' 
 	When Request Select for TestObject
 	Then I have SQL like 'SELECT t.Id, t.Name, t.OrderId FROM TestObject t' 
 
 @select
 Scenario: Simple Select From object with alias
 	Given Select Generator
-	And Alias is 'to' 
+	And Table with alias is 'TestObject' and alias 'to'
 	When Request Select for TestObject
 	Then I have SQL like 'SELECT to.Id, to.Name, to.OrderId FROM TestObject to' 
 
 Scenario: Simple where
 	Given Select Generator
-	And  where clause is 'Name = 'Test'
+	And Table is 'TestObject'
+	And  where clause is equals between 'Name' and "'Test'"
 	When Request Select for TestObject
-	Then I have SQL like 'SELECT t.Id, t.Name, t.Orderid FROM TestObject t WHERE t.Name = 'Test''
+	Then I have SQL like 'SELECT t.Id, t.Name, t.OrderId FROM TestObject t WHERE t.Name = 'Test''

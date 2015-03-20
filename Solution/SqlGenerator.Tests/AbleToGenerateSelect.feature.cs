@@ -84,8 +84,10 @@ namespace SqlGenerator.Tests
 #line 8
             testRunner.Given("Select Generator", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 9
-            testRunner.When("Request Select for TestObject", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+            testRunner.And("Table is \'TestObject\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 10
+            testRunner.When("Request Select for TestObject", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 11
             testRunner.Then("I have SQL like \'SELECT t.Id, t.Name, t.OrderId FROM TestObject t\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -98,15 +100,15 @@ namespace SqlGenerator.Tests
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Simple Select From object with alias", new string[] {
                         "select"});
-#line 13
-            this.ScenarioSetup(scenarioInfo);
 #line 14
-            testRunner.Given("Select Generator", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+            this.ScenarioSetup(scenarioInfo);
 #line 15
-            testRunner.And("Alias is \'to\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.Given("Select Generator", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 16
-            testRunner.When("Request Select for TestObject", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+            testRunner.And("Table with alias is \'TestObject\' and alias \'to\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 17
+            testRunner.When("Request Select for TestObject", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 18
             testRunner.Then("I have SQL like \'SELECT to.Id, to.Name, to.OrderId FROM TestObject to\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -118,16 +120,18 @@ namespace SqlGenerator.Tests
         public virtual void SimpleWhere()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Simple where", ((string[])(null)));
-#line 19
-            this.ScenarioSetup(scenarioInfo);
 #line 20
-            testRunner.Given("Select Generator", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+            this.ScenarioSetup(scenarioInfo);
 #line 21
-            testRunner.And("where clause is \'Name = \'Test\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.Given("Select Generator", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 22
-            testRunner.When("Request Select for TestObject", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+            testRunner.And("Table is \'TestObject\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 23
-            testRunner.Then("I have SQL like \'SELECT t.Id, t.Name, t.Orderid FROM TestObject t WHERE t.Name = " +
+            testRunner.And("where clause is equals between \'Name\' and \"\'Test\'\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 24
+            testRunner.When("Request Select for TestObject", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 25
+            testRunner.Then("I have SQL like \'SELECT t.Id, t.Name, t.OrderId FROM TestObject t WHERE t.Name = " +
                                "\'Test\'\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
