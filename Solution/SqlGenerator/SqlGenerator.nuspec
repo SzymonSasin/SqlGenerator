@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>SqlGenerator</id>
+    <version>1.0.0</version>
+    <authors>Szymon Sasin</authors>
+    <owners>Szymon Sasin</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Simple SQL generator, create to work with Dapper queries.</description>
+    <releaseNotes>Simple queries for now.</releaseNotes>
+    <copyright>Copyright 2015</copyright>
+    <tags>SQL</tags>
+    <dependencies>
+    </dependencies>
+  </metadata>
+</package>
