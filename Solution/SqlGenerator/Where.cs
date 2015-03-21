@@ -1,10 +1,15 @@
-﻿namespace SqlGenerator
+﻿using System;
+
+namespace SqlGenerator
 {
     internal sealed class Where : SqlCommandPart, IWhere
     {
-        internal Where(SqlBuilder builder)
+        private readonly bool includeWhere;
+
+        internal Where(SqlBuilder builder, bool includeWhere = true)
             : base(builder)
         {
+            this.includeWhere = includeWhere;
         }
 
         public IWhereOperator For(string leftValue)
@@ -14,9 +19,20 @@
             return new WhereOperator(this.Builder);
         }
 
+        public IWhereJoin Bracket(Func<IWhere, IWhereJoin> where)
+        {
+            this.Builder.AddSqlTemplate("(");
+            var result = where(new Where(this.Builder, false));
+            this.Builder.AddSqlTemplate(")");
+
+            return result;
+        }
+
         private string GetSqlTempalte(string leftValue)
         {
-            return " WHERE {0}."
+            var where = this.includeWhere ? " WHERE " : string.Empty;
+            return where
+                + "{0}."
                 + leftValue;
         }
     }

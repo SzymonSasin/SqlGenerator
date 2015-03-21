@@ -20,6 +20,15 @@ Scenario: Simple Select From object with alias
 Scenario: Simple where
 	Given Select Generator
 	And Table is 'TestObject'
-	And  where clause is equals between 'Name' and "'Test'"
+	And Where clause is equals between 'Name' and "'Test'"
 	When Request Select for TestObject
 	Then I have SQL like 'SELECT t.Id, t.Name, t.OrderId FROM TestObject t WHERE t.Name = 'Test''
+
+	
+Scenario: Where with simple bracket
+	Given Select Generator
+	And Table is 'TestObject'
+	And Where clause is equals between 'Name' and "'Test'"
+	And And in bracket Where is equals between 'Name' and "'Test'"
+	When Request Select for TestObject
+	Then I have SQL like 'SELECT t.Id, t.Name, t.OrderId FROM TestObject t WHERE t.Name = 'Test' AND (t.Name = 'Test')'

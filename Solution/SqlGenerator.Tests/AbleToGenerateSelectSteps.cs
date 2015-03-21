@@ -36,7 +36,7 @@ namespace SqlGenerator.Tests
             ScenarioContext.Current[AbleToGenerateSelectSteps.Query] = query;
         }
 
-        [Given(@"where clause is equals between '(.*)' and ""(.*')""")]
+        [Given(@"Where clause is equals between '(.*)' and ""(.*')""")]
         public void GivenWhereClauseIsEquals(string left, string right)
         {
             var query = ScenarioContext
@@ -44,6 +44,20 @@ namespace SqlGenerator.Tests
                 .Get<IWhere>(AbleToGenerateSelectSteps.Query)
                 .For(left)
                 .IsEqualTo(right);
+            ScenarioContext.Current[AbleToGenerateSelectSteps.Query] = query;
+        }
+
+        [Given(@"And in bracket Where is equals between '(.*)' and ""(.*)""")]
+        public void GivenAndInBracketWhereIsEqualsBetweenAnd(string left, string right)
+        {
+            var query = ScenarioContext
+                  .Current
+                  .Get<IWhereJoin>(AbleToGenerateSelectSteps.Query)
+                  .And()
+                  .Bracket(x => x
+                      .For(left)
+                      .IsEqualTo(right));
+
             ScenarioContext.Current[AbleToGenerateSelectSteps.Query] = query;
         }
 

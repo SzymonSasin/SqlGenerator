@@ -127,12 +127,37 @@ namespace SqlGenerator.Tests
 #line 22
             testRunner.And("Table is \'TestObject\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 23
-            testRunner.And("where clause is equals between \'Name\' and \"\'Test\'\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("Where clause is equals between \'Name\' and \"\'Test\'\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 24
             testRunner.When("Request Select for TestObject", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 25
             testRunner.Then("I have SQL like \'SELECT t.Id, t.Name, t.OrderId FROM TestObject t WHERE t.Name = " +
                                "\'Test\'\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+
+        [Xunit.FactAttribute()]
+        [Xunit.TraitAttribute("FeatureTitle", "AbleToGenerateSelect")]
+        [Xunit.TraitAttribute("Description", "Where with simple bracket")]
+        public virtual void WhereWithSimpleBracket()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Where with simple bracket", ((string[])(null)));
+#line 28
+            this.ScenarioSetup(scenarioInfo);
+#line 29
+            testRunner.Given("Select Generator", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 30
+            testRunner.And("Table is \'TestObject\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 31
+            testRunner.And("Where clause is equals between \'Name\' and \"\'Test\'\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 32
+            testRunner.And("And in bracket Where is equals between \'Name\' and \"\'Test\'\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 33
+            testRunner.When("Request Select for TestObject", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 34
+            testRunner.Then("I have SQL like \'SELECT t.Id, t.Name, t.OrderId FROM TestObject t WHERE t.Name = " +
+                               "\'Test\' AND (t.Name = \'Test\')\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
