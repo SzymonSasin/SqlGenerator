@@ -5,9 +5,6 @@ namespace SqlGenerator
 {
     internal sealed class From : SqlCommandPart, IFrom
     {
-        private string alias;
-        private string table;
-
         internal From(SqlBuilder builder)
             : base(builder)
         {
@@ -25,7 +22,7 @@ namespace SqlGenerator
             this.Builder.AddAlias(alias);
             this.Builder.AddSqlTemplate(this.GetSqlTempalte(table));
 
-            return new Where(this.Builder);
+            return new WhereQuery(this.Builder);
         }
 
         private static string GetDefaultAlias(string table)

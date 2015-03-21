@@ -42,7 +42,7 @@ namespace SqlGenerator.Tests
             var query = ScenarioContext
                 .Current
                 .Get<IWhere>(AbleToGenerateSelectSteps.Query)
-                .For(left)
+                .Where(left)
                 .IsEqualTo(right);
             ScenarioContext.Current[AbleToGenerateSelectSteps.Query] = query;
         }
@@ -55,7 +55,7 @@ namespace SqlGenerator.Tests
                   .Get<IWhereJoin>(AbleToGenerateSelectSteps.Query)
                   .And()
                   .Bracket(x => x
-                      .For(left)
+                      .Where(left)
                       .IsEqualTo(right));
 
             ScenarioContext.Current[AbleToGenerateSelectSteps.Query] = query;

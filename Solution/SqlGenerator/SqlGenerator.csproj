@@ -63,9 +63,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlBuilder.cs" />
     <Compile Include="SqlCommandPart.cs" />
-    <Compile Include="Where.cs" />
     <Compile Include="WhereJoin.cs" />
     <Compile Include="WhereOperator.cs" />
+    <Compile Include="WhereQuery.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

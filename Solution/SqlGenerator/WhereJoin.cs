@@ -23,7 +23,7 @@ namespace SqlGenerator
         {
             this.Builder.AddSqlTemplate(concatenation);
 
-            return new Where(this.Builder);
+            return new WhereQuery(this.Builder);
         }
     }
 }

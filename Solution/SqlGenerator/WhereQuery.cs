@@ -2,17 +2,17 @@
 
 namespace SqlGenerator
 {
-    internal sealed class Where : SqlCommandPart, IWhere
+    internal sealed class WhereQuery : SqlCommandPart, IWhere
     {
         private readonly bool includeWhere;
 
-        internal Where(SqlBuilder builder, bool includeWhere = true)
+        internal WhereQuery(SqlBuilder builder, bool includeWhere = true)
             : base(builder)
         {
             this.includeWhere = includeWhere;
         }
 
-        public IWhereOperator For(string leftValue)
+        public IWhereOperator Where(string leftValue)
         {
             this.Builder.AddSqlTemplate(this.GetSqlTempalte(leftValue));
 
@@ -22,7 +22,7 @@ namespace SqlGenerator
         public IWhereJoin Bracket(Func<IWhere, IWhereJoin> where)
         {
             this.Builder.AddSqlTemplate("(");
-            var result = where(new Where(this.Builder, false));
+            var result = where(new WhereQuery(this.Builder, false));
             this.Builder.AddSqlTemplate(")");
 
             return result;
